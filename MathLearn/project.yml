@@ -1,0 +1,49 @@
+# MathLearn iOS — XcodeGen manifest
+#
+# Generate the Xcode project with:
+#   brew install xcodegen
+#   cd ios/MathLearn && xcodegen generate
+#
+# Or open the folder directly in Xcode 16+ (File → Open → this folder)
+# and let Xcode's folder-sync build the app; both paths work.
+
+name: MathLearn
+options:
+  bundleIdPrefix: com.mathlearn
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1"          # iPhone-first (matches the web funnel)
+    GENERATE_INFOPLIST_FILE: false
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  MathLearn:
+    type: application
+    platform: iOS
+    sources:
+      - path: MathLearnApp
+        excludes:
+          - "Resources/**"
+    resources:
+      - path: MathLearnApp/Resources
+    info:
+      path: MathLearnApp/Info.plist
+      properties:
+        CFBundleDisplayName: MathLearn
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen:
+          UIColorName: CreamColor
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "MathLearn uses the camera so you can photograph a math problem for the Photo Solver."
+        NSPhotoLibraryUsageDescription: "MathLearn uses your photo library so you can pick a math problem image for the Photo Solver."
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoadsInWebContent: true
+        ITSAppUsesNonExemptEncryption: false
